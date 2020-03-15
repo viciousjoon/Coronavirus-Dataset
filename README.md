@@ -1,11 +1,13 @@
 # Coronavirus-Dataset
 - **코로나바이러스감염증-19 (COVID-19)** 국내 확진자 정보를 데이터 분석에 용이하도록 CSV 파일로 재가공하였습니다.
-1. patient 데이터셋: 5766명의 확진자에 대한 정보 (2020년 3월 5일 0시 기준)  
-2. route 데이터셋: 확진자들의 이동 경로에 대한 정보
-3. time 데이터셋: 일자별 검사 결과 및 현황 정보
+1. case 데이터셋: 감염 사례 정보 (2020년 3월 11일 0시 기준) 
+2. patient 데이터셋: 7869명의 확진자에 대한 정보  
+3. route 데이터셋: 확진자들의 이동 경로에 대한 정보
+4. time 데이터셋: 일자별 검사 결과 및 현황 정보
+5. trend 데이터셋: 일자별 코로나 관련 키워드 검색량 정보 (네이버 기준)
   
 - 아직 확인되지 않은 정보는 추후에 업데이트할 예정입니다.
-- kaggle Data에도 공개되어 있습니다. [Coronavirus-Dataset](https://www.kaggle.com/kimjihoo/coronavirusdataset) 
+- kaggle Data에도 공개되어 있습니다. **[Coronavirus-Dataset](https://www.kaggle.com/kimjihoo/coronavirusdataset) (Description in English)**
 
 ***
 
@@ -13,8 +15,48 @@
 
 ***
 
-### 1. patient 데이터셋 정보
-- ***id***: 확진자의 id (n번째 확진자) 
+### 1. case 데이터셋 정보
+- ***case_id***: 감염 사례의 id
+- ***province***: 특별시/광역시/도
+- ***city***: 시/군/구
+- ***group***: 집단 감염 여부
+- ***infection_case***: 감염 사례
+  - *Bonghwa Pureun Nursing Home*: 봉화 푸른요양원 관련
+  - *Bundang Jesaeng Hospital*: 분당제생병원 관련
+  - *Changnyeong Coin Karaoke*: 창녕 동전노래방 관련
+  - *Cheongdo Daenam Hospital*: 청도대남병원 관련
+  - *Dongan Church*: 동안교회 관련
+  - *Eunpyeong St. Mary's Hospital*: 은평성모병원 관련
+  - *Geochang Church*: 거창교회 관련
+  - *Goesan-gun Jangyeon-myeon*: 괴산군 장연면 관련
+  - *Guro-gu Call Center*: 구로구 콜센터 관련
+  - *Gyeongsan Cham Joeun Community Center*: 경산 참좋은재가센터 관련
+  - *Gyeongsan Jeil Silver Town*: 경산 제일실버타운 관련
+  - *Gyeongsan Seorin Nursing Home*: 경산 서린요양원 관련
+  - *gym*: 운동시설 관련
+  - *Haeundae-gu Catholic Church*: 해운대구 성당 관련
+  - *Hanmaeum Changwon Hospital*:  한마음창원병원 관련
+  - *Jin-gu Academy*: 부산진구 학원 관련
+  - *Jongno Community Center*: 종로구 관련
+  - *Jung-gu Fashion Company*: 중구 패션회사 관련
+  - *Milal Shelter*: 칠곡 밀알사랑의집 관련
+  - *Onchun Church*: 온천교회 관련
+  - *Pilgrimage to Israel*: 성지순례 관련
+  - *Seongdong-gu APT*: 성동구 아파트 관련
+  - *Shincheonji Church*: 신천지 관련
+  - *Suwon Saeng Myeong Saem Church*: 수원 생명샘교회 관련
+  - *Suyeong-gu Kindergarten*: 수영구 유치원 관련  
+  - *contact with patient*: 확진자 접촉자
+  - *overseas inflow*: 기존 해외유입 관련
+  - *etc*: 기타  
+- ***confirmed***: 누적 확진자 수
+- ***latitude***: 집단 감염이 발생한 곳의 위도
+- ***longitude***: 집단 감염이 발생한 곳의 경도
+
+***
+
+### 2. patient 데이터셋 정보
+- ***patient_id***: 확진자의 id (n번째 확진자) 
 - ***sex***: 성별
 - ***birth_year***: 출생 연도
 - ***country***: 국적
@@ -37,12 +79,14 @@
   - *Gyeongsangbuk-do*: 경상북도
   - *Gyeongsangnam-do*: 경상남도
   - *Jeju-do*: 제주도
+- ***disease***: 기저 질환 여부
+  - *0*: 없음
+  - *1*: 있음
 - ***group***: 특정 집단 관련
   - *Shincheonji Church*: 신천지 관련
   - *Cheongdo Daenam Hospital*: 청도대남병원 관련
   - *Eunpyeong St. Mary's Hospital*: 은평성모병원 관련
   - *Onchun Church*: 온천 교회 관련
-  - *Myungsung Church*: 명성 교회 관련
   - *Pilgrimage*: 이스라엘 성지순례 관련
 - ***infection_reason***: 감염 경로
   - *visit to ooo*: 감염 위험 나라/도시 방문
@@ -63,8 +107,8 @@
 
 ***
 
-### 2. route 데이터셋 정보
-- ***id***: 확진자의 id (n번째 확진자) 
+### 3. route 데이터셋 정보
+- ***patient_id***: 확진자의 id (n번째 확진자) 
 - ***date***: 일자
 - ***province***: 특별시/광역시/도
 - ***city***: 시/군/구
@@ -78,30 +122,51 @@
   - *market*: 대형 마트
   - *restaurant*: 식당
   - *cafe*: 카페 
-  - *company*:  
+  - *company*: 회사
   - *bus_terminal*: 버스 터미널
   - *train_station*: 기차역
   - *movie_theater*: 영화관
   - *hair_salon*: 미용실
   - *church*: 교회
   - *etc*: 기타 방문 장소 
-- ***latitude***: 위도
-- ***longitude***: 경도
+- ***latitude***: 방문한 장소의 위도
+- ***longitude***: 방문한 장소의 경도
 
 ***
 
-### 3. time 데이터셋 정보
+### 4. time 데이터셋 정보
 - ***date***: 일자
-- ***acc_test***: 누적 검사 수 (진행 중인 검사 포함)
-- ***acc_negative***: 누적 음성 결과 수
-- ***acc_confirmed***: 누적 양성 결과 수 (확진)
-- ***acc_released***: 누적 격리 해제 수
-- ***acc_deceased***: 누적 사망 수
-- ***new_test***: 신규 검사 수
-- ***new_negative***: 신규 음성 결과 수
-- ***new_confirmed***: 신규 양성 결과 수 (확진)
-- ***new_released***: 신규 격리 해제 수
-- ***new_deceased***: 신규 사망 수 
+- ***test***: 누적 검사 수 (진행 중인 검사 포함)
+- ***negative***: 누적 음성 결과 수
+- ***confirmed***: 누적 양성 결과 수 (확진)
+- ***released***: 누적 격리 해제 수
+- ***deceased***: 누적 사망 수
+- ***Seoul***: 누적 확진자 수 in 서울 
+- ***Busan***: 누적 확진자 수 in 부산
+- ***Daegu***: 누적 확진자 수 in 대구
+- ***Incheon***: 누적 확진자 수 in 인천
+- ***Gwangju***: 누적 확진자 수 in 광주 
+- ***Daejeon***: 누적 확진자 수 in 대전
+- ***Ulsan***: 누적 확진자 수 in 울산
+- ***Sejong***: 누적 확진자 수 in 세종
+- ***Gyeonggi-do***: 누적 확진자 수 in 경기도
+- ***Gangwon-do***: 누적 확진자 수 in 강원도
+- ***Chungcheongbuk-do***: 누적 확진자 수 in 충청북도
+- ***Chungcheongnam-do***: 누적 확진자 수 in 충청남도
+- ***Jeollabuk-do***: 누적 확진자 수 in 전라북도
+- ***Jeollanam-do***: 누적 확진자 수 in 전라남도
+- ***Gyeongsangbuk-do***: 누적 확진자 수 in 경상북도
+- ***Gyeongsangnam-do***: 누적 확진자 수 in 경상남도
+- ***Jeju-do***: 누적 확진자 수 in 제주도
+
+***
+
+### 5. trend 데이터셋 정보
+- ***date***: 일자
+- ***cold***: '감기' 검색량
+- ***flu***: '독감' 검색량
+- ***pneumonia***: '폐렴' 검색량
+- ***coronavirus***: '코로나바이러스' 검색량
 
 ***
 
@@ -112,3 +177,4 @@
 - [코로나19(COVID-19) 실시간 상황판](https://wuhanvirus.kr/) (민간)
 - [대한민국의 코로나바이러스감염증-19 유행](https://ko.wikipedia.org/wiki/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%EC%9D%98_%EC%BD%94%EB%A1%9C%EB%82%98%EB%B0%94%EC%9D%B4%EB%9F%AC%EC%8A%A4%EA%B0%90%EC%97%BC%EC%A6%9D-19_%EC%9C%A0%ED%96%89) (위키피디아)
 - [코로나바이러스감염증-19/경과/대한민국 확진자 현황](https://namu.wiki/w/%EC%BD%94%EB%A1%9C%EB%82%98%EB%B0%94%EC%9D%B4%EB%9F%AC%EC%8A%A4%EA%B0%90%EC%97%BC%EC%A6%9D-19/%EA%B2%BD%EA%B3%BC/%EB%8C%80%ED%95%9C%EB%AF%BC%EA%B5%AD%20%ED%99%95%EC%A7%84%EC%9E%90%20%ED%98%84%ED%99%A9) (나무위키)
+- [네이버 데이터랩](https://datalab.naver.com/)
